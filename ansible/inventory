@@ -1,0 +1,17 @@
+[all]
+master1 ansible_connection=ssh ansible_ssh_user=vagrant
+master2 ansible_connection=ssh ansible_ssh_user=vagrant
+master3 ansible_connection=ssh ansible_ssh_user=vagrant
+worker1 ansible_connection=ssh ansible_ssh_user=vagrant
+worker2 ansible_connection=ssh ansible_ssh_user=vagrant
+worker3 ansible_connection=ssh ansible_ssh_user=vagrant
+
+[masters]
+master1 ansible_connection=ssh ansible_ssh_user=vagrant
+master2 ansible_connection=ssh ansible_ssh_user=vagrant
+master3 ansible_connection=ssh ansible_ssh_user=vagrant
+
+[workers]
+worker1 ansible_connection=ssh ansible_ssh_user=vagrant
+worker2 ansible_connection=ssh ansible_ssh_user=vagrant
+worker3 ansible_connection=ssh ansible_ssh_user=vagrant

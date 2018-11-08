@@ -1,0 +1,7 @@
+127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4
+192.168.33.10 master1.techysoul.com master1
+192.168.33.11 master2.techysoul.com master2
+192.168.33.12 master3.techysoul.com master3
+192.168.33.13 worker1.techysoul.com worker1
+192.168.33.14 worker2.techysoul.com worker2
+192.168.33.15 worker3.techysoul.com worker3

@@ -4,9 +4,9 @@ nodes = [
   { :hostname => 'master1',  :ip => '192.168.33.10', :id => '10' },
   { :hostname => 'master2',  :ip => '192.168.33.11', :id => '11' },
   { :hostname => 'master3',  :ip => '192.168.33.12', :id => '12' },
-  { :hostname => 'worker1',   :ip => '192.168.33.13', :id => '13' },
-  { :hostname => 'worker2',   :ip => '192.168.33.14', :id => '14' },
-  { :hostname => 'worker3',   :ip => '192.168.33.15', :id => '15' },
+  { :hostname => 'worker1',  :ip => '192.168.33.13', :id => '13' },
+  { :hostname => 'worker2',  :ip => '192.168.33.14', :id => '14' },
+  { :hostname => 'worker3',  :ip => '192.168.33.15', :id => '15' },
 ]
 memory = 768
 
@@ -21,8 +21,9 @@ Vagrant.configure("2") do |config|
   nodes.each do |node|
     config.vm.define node[:hostname] do |nodeconfig|
       nodeconfig.vm.box = "rhel-7.4-201811-vagrant-v2"
-      nodeconfig.vm.hostname = node[:hostname]
+      nodeconfig.vm.hostname = node[:hostname]+"."+domain
       nodeconfig.landrush.enabled = true
+      nodeconfig.landrush.tld = domain
       nodeconfig.vm.network :private_network, ip: node[:ip]
       nodeconfig.vm.synced_folder "disk1", "/opt/disk1"
       nodeconfig.vm.provider :virtualbox do |vb|

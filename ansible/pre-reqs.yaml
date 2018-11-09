@@ -26,7 +26,8 @@
       path: /etc/sysctl.conf
       line: 'net.bridge.bridge-nf-call-ip6tables = 1'
   # Set ip forwarding on in /proc and in the sysctl file and reload if necessary
-  - sysctl:
+  - name: Set up IP Forwarding.
+    sysctl:
       name: net.ipv4.ip_forward
       value: 1
       sysctl_set: yes
@@ -71,11 +72,9 @@
       url: https://download.docker.com/linux/centos/docker-ce.repo
       dest: /etc/yum.repos.d/docer-ce.repo
     become: yes
-  - name: Enabling RHEL Repo for Server Extra RPMs
-    shell: "subscription-manager repos --enable=rhel-7-server-extras-rpms"
-  - name: Installing required packages.
+  - name: Installing docker and kubernetes packages.
     yum:
-      name: ['docker-ce', 'kubelet', 'kubeadm', 'kubectl', 'ntp']
+      name: ['docker-ce-18.06.1.ce', 'kubelet', 'kubeadm', 'kubectl', 'ntp']
       state: latest
   - name: Enable service docker-ce and ensure it is started
     systemd:
@@ -87,8 +86,8 @@
       name: kubelet
       enabled: yes
       state: started
-#  - name: Enable service ntp and ensure it is started
-#    systemd:
-#      name: ntp
-#      enabled: yes
-#      state: started
+  - name: Make Sure Services are enabled at boot.
+    service: name={{item}} state=started enabled=yes
+    with_items:
+      - docker
+      - kubelet

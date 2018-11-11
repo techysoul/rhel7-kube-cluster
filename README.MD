@@ -42,6 +42,31 @@ sudo kubeadm join 192.168.33.10:6443 --token yzubgc.1i552kqrzhmgxf7q --discovery
 #On Master1
 kubectl get nodes
 
+// Check if this is needed
+## Create /etc/docker directory.
+mkdir /etc/docker
+
+# Setup daemon.
+cat > /etc/docker/daemon.json <<EOF
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2",
+  "storage-opts": [
+    "overlay2.override_kernel_check=true"
+  ]
+}
+EOF
+
+mkdir -p /etc/systemd/system/docker.service.d
+
+# Restart docker.
+systemctl daemon-reload
+systemctl restart docker
+
 #Generate SSH Key pair on master0 node,
 
 ssh master0
